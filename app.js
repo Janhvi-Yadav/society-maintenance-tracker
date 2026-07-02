@@ -44,15 +44,20 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'fallback-secret-change-me',
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
+  store: MongoStore.create({ 
+    mongoUrl: process.env.MONGO_URI,
+    touchAfter: 24 * 3600
+  }),
+  cookie: { 
+    maxAge: 1000 * 60 * 60 * 24,
+    secure: false
+  }
 }));
 
-// 7. Flash messages - for one-time success/error banners after redirects
+
 app.use(flash());
 
-// 8. Make session user + flash messages available in EVERY view automatically,
-// so we don't have to pass them manually in every single controller function
+
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   res.locals.success = req.flash('success');
