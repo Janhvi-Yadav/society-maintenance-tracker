@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="/" class="brand">Society Tracker</a>
+  </div>
+
+  <% if (user) { %>
+    <div class="nav-links">
+      <% if (user.role === 'admin') { %>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/complaints">Complaints</a>
+        <a href="/admin/notices">Notices</a>
+        <a href="/admin/settings">Settings</a>
+      <% } else { %>
+        <a href="/resident/complaints">My Complaints</a>
+        <a href="/resident/complaints/new">Raise Complaint</a>
+        <a href="/resident/notices">Notice Board</a>
+      <% } %>
+    </div>
+
+    <div class="nav-right">
+      <button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode">🌙</button>
+      <span class="nav-user"><%= user.name %></span>
+      <a href="/auth/logout" class="logout-link">Logout</a>
+    </div>
+  <% } else { %>
+    <div class="nav-right">
+      <button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode">🌙</button>
+      <a href="/auth/login">Login</a>
+      <a href="/auth/register">Register</a>
+    </div>
+  <% } %>
+</nav>
