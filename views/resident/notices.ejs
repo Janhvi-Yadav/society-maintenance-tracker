@@ -1,0 +1,24 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <h1>Notice Board</h1>
+  <%- include('../partials/flash') %>
+
+  <% if (notices.length === 0) { %>
+    <p class="empty-state">No notices yet.</p>
+  <% } else { %>
+    <div class="notice-list">
+      <% notices.forEach(n => { %>
+        <div class="card notice-card <%= n.isImportant ? 'notice-pinned' : '' %>">
+          <% if (n.isImportant) { %><span class="badge badge-overdue">📌 Important</span><% } %>
+          <h3><%= n.title %></h3>
+          <p><%= n.content %></p>
+          <p class="card-meta">By <%= n.postedBy.name %> on <%= n.createdAt.toDateString() %></p>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

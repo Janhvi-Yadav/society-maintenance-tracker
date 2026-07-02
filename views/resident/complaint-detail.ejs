@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <a href="/resident/complaints" class="back-link">&larr; Back to my complaints</a>
+
+  <div class="card detail-card">
+    <div class="card-top">
+      <span class="badge badge-<%= complaint.status.replace(' ', '').toLowerCase() %>"><%= complaint.status %></span>
+      <span class="badge badge-priority-<%= complaint.priority.toLowerCase() %>"><%= complaint.priority %> priority</span>
+      <% if (complaint.isOverdue) { %>
+        <span class="badge badge-overdue">Overdue</span>
+      <% } %>
+    </div>
+
+    <h1><%= complaint.category %></h1>
+    <p class="complaint-desc"><%= complaint.description %></p>
+
+    <% if (complaint.photo) { %>
+<img src="<%= complaint.photo %>" alt="Complaint photo" class="complaint-photo">    <% } %>
+
+    <p class="card-meta">Raised on <%= complaint.createdAt.toDateString() %></p>
+  </div>
+
+  <h2 class="section-title">Status History</h2>
+  <div class="timeline">
+    <% complaint.history.slice().reverse().forEach(h => { %>
+      <div class="timeline-item">
+        <span class="badge badge-<%= h.status.replace(' ', '').toLowerCase() %>"><%= h.status %></span>
+        <p class="timeline-date"><%= h.changedAt.toLocaleString() %></p>
+        <% if (h.note) { %><p class="timeline-note"><%= h.note %></p><% } %>
+        <% if (h.changedBy) { %>
+          <p class="timeline-actor">by <%= h.changedBy.name %> (<%= h.changedBy.role %>)</p>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

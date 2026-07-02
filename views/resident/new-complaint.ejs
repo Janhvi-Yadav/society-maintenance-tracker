@@ -1,0 +1,32 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container center-page">
+  <div class="card form-card">
+    <h1>Raise a Complaint</h1>
+    <%- include('../partials/flash') %>
+
+    <!-- enctype is required because we're uploading a file -->
+    <form action="/resident/complaints" method="POST" enctype="multipart/form-data">
+      <label for="category">Category</label>
+      <select id="category" name="category" required>
+        <option value="Plumbing">Plumbing</option>
+        <option value="Electrical">Electrical</option>
+        <option value="Cleanliness">Cleanliness</option>
+        <option value="Security">Security</option>
+        <option value="Parking">Parking</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="5" required placeholder="Describe the issue..."></textarea>
+
+      <label for="photo">Photo (optional)</label>
+      <input type="file" id="photo" name="photo" accept="image/png, image/jpeg, image/webp">
+
+      <button type="submit" class="btn btn-primary">Submit Complaint</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

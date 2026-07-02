@@ -1,0 +1,31 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <div class="page-header">
+    <h1>My Complaints</h1>
+    <a href="/resident/complaints/new" class="btn btn-primary">+ Raise Complaint</a>
+  </div>
+
+  <%- include('../partials/flash') %>
+
+  <% if (complaints.length === 0) { %>
+    <p class="empty-state">You haven't raised any complaints yet.</p>
+  <% } else { %>
+    <div class="card-grid">
+      <% complaints.forEach(c => { %>
+        <a href="/resident/complaints/<%= c._id %>" class="card complaint-card">
+          <div class="card-top">
+            <span class="badge badge-<%= c.status.replace(' ', '').toLowerCase() %>"><%= c.status %></span>
+            <span class="badge badge-priority-<%= c.priority.toLowerCase() %>"><%= c.priority %></span>
+          </div>
+          <h3><%= c.category %></h3>
+          <p class="complaint-desc"><%= c.description.substring(0, 80) %><%= c.description.length > 80 ? '...' : '' %></p>
+          <p class="card-meta">Raised on <%= c.createdAt.toDateString() %></p>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>
