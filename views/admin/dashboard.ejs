@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <h1>Dashboard</h1>
+  <%- include('../partials/flash') %>
+
+  <div class="stats-grid">
+    <div class="card stat-card">
+      <h2><%= totalCount %></h2>
+      <p>Total Complaints</p>
+    </div>
+    <div class="card stat-card stat-overdue">
+      <h2><%= overdueCount %></h2>
+      <p>Overdue</p>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="card stat-block">
+      <h3>By Status</h3>
+      <% byStatus.forEach(s => { %>
+        <div class="stat-line">
+          <span class="badge badge-<%= s._id.replace(' ', '').toLowerCase() %>"><%= s._id %></span>
+          <span class="stat-count"><%= s.count %></span>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="card stat-block">
+      <h3>By Category</h3>
+      <% byCategory.forEach(c => { %>
+        <div class="stat-line">
+          <span><%= c._id %></span>
+          <span class="stat-count"><%= c.count %></span>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <a href="/admin/complaints" class="btn btn-primary">View All Complaints</a>
+</div>
+
+<%- include('../partials/footer') %>

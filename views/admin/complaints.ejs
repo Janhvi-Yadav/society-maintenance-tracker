@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <h1>Manage Complaints</h1>
+  <%- include('../partials/flash') %>
+
+  <!-- Filter form - GET request so filters show up in the URL and can be bookmarked/shared -->
+  <form action="/admin/complaints" method="GET" class="filter-bar">
+    <select name="category">
+      <option value="">All Categories</option>
+      <% ['Plumbing','Electrical','Cleanliness','Security','Parking','Other'].forEach(cat => { %>
+        <option value="<%= cat %>" <%= filters.category === cat ? 'selected' : '' %>><%= cat %></option>
+      <% }) %>
+    </select>
+
+    <select name="status">
+      <option value="">All Statuses</option>
+      <% ['Open','In Progress','Resolved'].forEach(st => { %>
+        <option value="<%= st %>" <%= filters.status === st ? 'selected' : '' %>><%= st %></option>
+      <% }) %>
+    </select>
+
+    <input type="date" name="date" value="<%= filters.date || '' %>">
+
+    <button type="submit" class="btn btn-secondary">Filter</button>
+    <a href="/admin/complaints" class="btn btn-text">Clear</a>
+  </form>
+
+  <% if (complaints.length === 0) { %>
+    <p class="empty-state">No complaints match these filters.</p>
+  <% } else { %>
+    <div class="card-grid">
+      <% complaints.forEach(c => { %>
+        <a href="/admin/complaints/<%= c._id %>" class="card complaint-card <%= c.isOverdue ? 'card-overdue' : '' %>">
+          <div class="card-top">
+            <span class="badge badge-<%= c.status.replace(' ', '').toLowerCase() %>"><%= c.status %></span>
+            <span class="badge badge-priority-<%= c.priority.toLowerCase() %>"><%= c.priority %></span>
+            <% if (c.isOverdue) { %><span class="badge badge-overdue">Overdue</span><% } %>
+          </div>
+          <h3><%= c.category %></h3>
+          <p class="card-meta">Flat <%= c.resident.flatNumber %> — <%= c.resident.name %></p>
+          <p class="card-meta">Raised on <%= c.createdAt.toDateString() %></p>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container center-page">
+  <div class="card form-card">
+    <h1>Settings</h1>
+    <%- include('../partials/flash') %>
+
+    <form action="/admin/settings" method="POST">
+      <label for="overdueThresholdDays">Overdue threshold (days)</label>
+      <input type="number" id="overdueThresholdDays" name="overdueThresholdDays"
+             value="<%= settings.overdueThresholdDays %>" min="1" required>
+      <p class="form-hint">Complaints that stay Open or In Progress longer than this many days get flagged as overdue.</p>
+
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
