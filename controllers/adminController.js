@@ -145,17 +145,24 @@ exports.dashboard = async (req, res) => {
   const byCategory = await Complaint.aggregate([
     { $group: { _id: '$category', count: { $sum: 1 } } }
   ]);
+const overdueCount = await Complaint.countDocuments({ isOverdue: true });
+const totalCount = await Complaint.countDocuments();
+ 
 
-  const overdueCount = await Complaint.countDocuments({ isOverdue: true });
-  const totalCount = await Complaint.countDocuments();
+const latestNotices = await Notice.find()
+  .sort({ isImportant: -1, createdAt: -1 })
+  .limit(3)
+  .populate('postedBy', 'name');
 
-  res.render('admin/dashboard', {
-    title: 'Dashboard',
-    byStatus,
-    byCategory,
-    overdueCount,
-    totalCount
-  });
+
+res.render('admin/dashboard', {
+  title: 'Dashboard',
+  byStatus,
+  byCategory,
+  overdueCount,
+  totalCount,
+  latestNotices
+});
 };
 
 // GET /admin/notices - admin's view of the notice board (with a post form)
@@ -216,4 +223,9 @@ exports.updateSettings = async (req, res) => {
 
   req.flash('success', 'Settings updated');
   res.redirect('/admin/settings');
+};
+
+// GET /admin/notices/new - separate page just for posting a notice
+exports.getNewNotice = (req, res) => {
+  res.render('admin/new-notice', { title: 'Post Notice' });
 };

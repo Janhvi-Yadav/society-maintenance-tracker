@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+  <div class="page-header">
+    <h1>Post a Notice</h1>
+    <a href="/admin/notices" class="btn btn-secondary">View All Notices</a>
+  </div>
+
+  <%- include('../partials/flash') %>
+
+  <div class="card form-card" style="max-width: 600px;">
+    <form action="/admin/notices" method="POST">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" placeholder="e.g. Water supply shutdown on Sunday" required>
+
+      <label for="content">Content</label>
+      <textarea id="content" name="content" rows="6" placeholder="Write the notice details here..." required></textarea>
+
+      <label class="checkbox-label" style="margin-top: 12px;">
+        <input type="checkbox" name="isImportant">
+        Mark as Important (pins to top + emails all residents)
+      </label>
+
+      <button type="submit" class="btn btn-primary">Post Notice</button>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

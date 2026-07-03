@@ -1,25 +1,27 @@
 <%- include('../partials/header') %>
-<%- include('../partials/navbar') %>
 
-<div class="container center-page">
-  <div class="card form-card">
-    <h1>Create an Account</h1>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-top">
+      <h1>Create an Account</h1>
+      <p>Register as a resident</p>
+    </div>
     <%- include('../partials/flash') %>
 
     <form action="/auth/register" method="POST">
-      <label for="name">Full Name</label>
+      <label for="name">FULL NAME</label>
       <input type="text" id="name" name="name" required>
 
-      <label for="email">Email</label>
+      <label for="email">EMAIL ADDRESS</label>
       <input type="email" id="email" name="email" required>
 
-      <label for="flatNumber">Flat Number</label>
+      <label for="flatNumber">FLAT NUMBER</label>
       <input type="text" id="flatNumber" name="flatNumber" placeholder="e.g. A-101" required>
 
-      <label for="password">Password</label>
+      <label for="password">PASSWORD</label>
       <input type="password" id="password" name="password" minlength="6" required>
 
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-login">Register</button>
     </form>
 
     <p class="form-footer-text">Already have an account? <a href="/auth/login">Login</a></p>

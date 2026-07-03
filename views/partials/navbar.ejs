@@ -1,32 +1,69 @@
-<nav class="navbar">
-  <div class="nav-left">
-    <a href="/" class="brand">Society Tracker</a>
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">🏢</div>
+    <div>
+      <p class="brand-name">Maintenance Tracker</p>
+      <p class="brand-role"><%= user ? (user.role === 'admin' ? 'Admin Portal' : 'Resident Portal') : 'Society Tracker' %></p>
+    </div>
   </div>
 
   <% if (user) { %>
-    <div class="nav-links">
+    <div class="sidebar-links">
       <% if (user.role === 'admin') { %>
-        <a href="/admin/dashboard">Dashboard</a>
-        <a href="/admin/complaints">Complaints</a>
-        <a href="/admin/notices">Notices</a>
-        <a href="/admin/settings">Settings</a>
+        <a href="/admin/dashboard" class="sidebar-link <%= locals.title === 'Dashboard' ? 'active' : '' %>">
+          <span class="sidebar-icon">📊</span> Dashboard
+        </a>
+        <a href="/admin/complaints" class="sidebar-link <%= locals.title === 'Manage Complaints' ? 'active' : '' %>">
+          <span class="sidebar-icon">📋</span> Complaints
+        </a>
+        <a href="/admin/notices" class="sidebar-link <%= locals.title === 'Notice Board' ? 'active' : '' %>">
+          <span class="sidebar-icon">📌</span> Notice Board
+        </a>
+        <a href="/admin/notices/new" class="sidebar-link <%= locals.title === 'Post Notice' ? 'active' : '' %>">
+          <span class="sidebar-icon">✏️</span> Post Notice
+        </a>
+        <a href="/admin/settings" class="sidebar-link <%= locals.title === 'Settings' ? 'active' : '' %>">
+          <span class="sidebar-icon">⚙️</span> Settings
+        </a>
       <% } else { %>
-        <a href="/resident/complaints">My Complaints</a>
-        <a href="/resident/complaints/new">Raise Complaint</a>
-        <a href="/resident/notices">Notice Board</a>
+        <a href="/resident/complaints" class="sidebar-link <%= locals.title === 'My Complaints' ? 'active' : '' %>">
+          <span class="sidebar-icon">📋</span> My Complaints
+        </a>
+        <a href="/resident/complaints/new" class="sidebar-link <%= locals.title === 'Raise a Complaint' ? 'active' : '' %>">
+          <span class="sidebar-icon">➕</span> Raise Complaint
+        </a>
+        <a href="/resident/notices" class="sidebar-link <%= locals.title === 'Notice Board' ? 'active' : '' %>">
+          <span class="sidebar-icon">📌</span> Notice Board
+        </a>
       <% } %>
     </div>
 
-    <div class="nav-right">
-      <button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode">🌙</button>
-      <span class="nav-user"><%= user.name %></span>
-      <a href="/auth/logout" class="logout-link">Logout</a>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar"><%= user.name.charAt(0).toUpperCase() %></div>
+        <div>
+          <p class="sidebar-username"><%= user.name %></p>
+          <p class="sidebar-userrole"><%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %></p>
+        </div>
+      </div>
+      <div class="sidebar-bottom-links">
+        <button id="theme-toggle" class="sidebar-link theme-sidebar-btn" title="Toggle dark/light mode">
+          <span class="sidebar-icon">🌙</span> Toggle Theme
+        </button>
+        <a href="/auth/logout" class="sidebar-link sidebar-logout">
+          <span class="sidebar-icon">🚪</span> Sign Out
+        </a>
+      </div>
     </div>
   <% } else { %>
-    <div class="nav-right">
-      <button id="theme-toggle" class="theme-btn" title="Toggle dark/light mode">🌙</button>
-      <a href="/auth/login">Login</a>
-      <a href="/auth/register">Register</a>
+    <div class="sidebar-footer">
+      <button id="theme-toggle" class="sidebar-link theme-sidebar-btn">
+        <span class="sidebar-icon">🌙</span> Toggle Theme
+      </button>
+      <a href="/auth/login" class="sidebar-link">Login</a>
+      <a href="/auth/register" class="sidebar-link">Register</a>
     </div>
   <% } %>
 </nav>
+
+<div class="main-content">

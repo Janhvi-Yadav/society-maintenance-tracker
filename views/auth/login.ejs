@@ -1,5 +1,4 @@
 <%- include('../partials/header') %>
-<%- include('../partials/navbar') %>
 
 <div class="login-page">
   <div class="login-card">
@@ -22,7 +21,6 @@
 
     <p class="form-footer-text">Don't have an account? <a href="/auth/register">Register</a></p>
 
-    <!-- Demo accounts — clicking fills the form automatically -->
     <div class="demo-accounts">
       <p class="demo-title">DEMO ACCOUNTS</p>
       <button type="button" class="demo-btn" onclick="fillDemo('admin@society.com', 'admin123')">
@@ -42,7 +40,6 @@
   function fillDemo(email, password) {
     document.getElementById('email').value = email;
     document.getElementById('password').value = password;
-    // Don't submit — user clicks Sign In button themselves
   }
 </script>
 

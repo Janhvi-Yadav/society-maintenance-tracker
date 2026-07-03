@@ -6,14 +6,8 @@
   <title><%= title %> - Society Tracker</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
-<!--
-  The theme is applied as a class on <body>. We read the saved choice
-  from localStorage BEFORE the page paints, so there's no "flash" of
-  the wrong theme on reload. See public/js/theme.js for the toggle logic.
--->
 <body class="light-mode">
 <script>
-  // Runs immediately, before the rest of the page loads
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     document.body.classList.remove('light-mode');

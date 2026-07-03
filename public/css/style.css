@@ -338,12 +338,18 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* ===== LOGIN PAGE ===== */
+/* Login and register pages need their own body layout */
 .login-page {
-  min-height: 90vh;
+  width: 100vw;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 20px;
+  background: var(--bg);
+}
+
+body:has(.login-page) {
+  display: block;
 }
 
 .login-card {
@@ -418,3 +424,174 @@ input:focus, select:focus, textarea:focus {
 }
 
 .demo-btn:hover { color: #818cf8; text-decoration: underline; }
+
+/* ===== SIDEBAR LAYOUT ===== */
+body {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 0;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-icon {
+  font-size: 2rem;
+  background: var(--primary);
+  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.brand-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.sidebar-links {
+  flex: 1;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar-link:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.sidebar-link.active {
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.sidebar-icon { font-size: 1.1rem; }
+
+.sidebar-footer {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  margin-bottom: 4px;
+}
+
+.sidebar-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-username {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.sidebar-userrole {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.sidebar-logout { color: #ef4444 !important; }
+.sidebar-logout:hover { background: #fee2e2 !important; }
+body.dark-mode .sidebar-logout:hover { background: #7f1d1d !important; }
+
+.theme-sidebar-btn { color: var(--text-muted); }
+
+/* ===== MAIN CONTENT SHIFTS RIGHT ===== */
+.main-content {
+  margin-left: 260px;
+  flex: 1;
+  min-height: 100vh;
+}
+
+/* ===== HIDE OLD NAVBAR ===== */
+.navbar { display: none; }
+
+/* ===== LOGIN PAGE - no sidebar ===== */
+.login-page .sidebar,
+body:not(:has(.sidebar)) .main-content {
+  margin-left: 0;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .main-content { margin-left: 0; }
+  .sidebar-links { flex-direction: row; flex-wrap: wrap; padding: 8px; }
+  .sidebar-footer { flex-direction: row; }
+  .sidebar-user { display: none; }
+}

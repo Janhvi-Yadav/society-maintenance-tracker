@@ -19,3 +19,6 @@ router.get('/settings', adminController.getSettings);
 router.post('/settings', adminController.updateSettings);
 
 module.exports = router;
+
+// Separate page just for posting a new notice
+router.get('/notices/new', adminController.getNewNotice);

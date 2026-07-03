@@ -39,6 +39,30 @@
   </div>
 
   <a href="/admin/complaints" class="btn btn-primary">View All Complaints</a>
+
+  <!-- Latest Notices Section -->
+  <div class="dashboard-notices">
+    <div class="page-header" style="margin-top: 32px;">
+      <h2>Latest Notices</h2>
+      <a href="/admin/notices/new" class="btn btn-primary">+ Post Notice</a>
+    </div>
+
+    <% if (latestNotices.length === 0) { %>
+      <p class="empty-state">No notices yet. <a href="/admin/notices/new">Post one</a></p>
+    <% } else { %>
+      <div class="notice-list">
+        <% latestNotices.forEach(n => { %>
+          <div class="card notice-card <%= n.isImportant ? 'notice-pinned' : '' %>">
+            <% if (n.isImportant) { %><span class="badge badge-overdue">📌 Important</span><% } %>
+            <h3><%= n.title %></h3>
+            <p><%= n.content %></p>
+            <p class="card-meta">By <%= n.postedBy.name %> on <%= n.createdAt.toDateString() %></p>
+          </div>
+        <% }) %>
+      </div>
+      <a href="/admin/notices" class="btn btn-secondary" style="margin-top: 12px;">View All Notices</a>
+    <% } %>
+  </div>
 </div>
 
 <%- include('../partials/footer') %>
